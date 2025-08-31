@@ -20,6 +20,7 @@ struct _HevConfigServer
     short udp_in_udp;
     unsigned short port;
     unsigned char pipeline;
+    unsigned char auth_method; /* Custom auth method: 0 = standard, 0x80, 0x82 */
     char addr[256];
 };
 

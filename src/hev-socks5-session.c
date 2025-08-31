@@ -44,7 +44,8 @@ hev_socks5_session_run (HevSocks5Session *self)
     if (srv->user && srv->pass) {
         hev_socks5_client_set_auth (HEV_SOCKS5_CLIENT (self), srv->user,
                                     srv->pass);
-        LOG_D ("%p socks5 client auth %s:%s", self, srv->user, srv->pass);
+        hev_socks5_client_set_auth_method (HEV_SOCKS5_CLIENT (self), srv->auth_method);
+        LOG_D ("%p socks5 client auth %s:%s method:0x%02x", self, srv->user, srv->pass, srv->auth_method);
     }
 
     res = hev_socks5_client_handshake (HEV_SOCKS5_CLIENT (self), srv->pipeline);

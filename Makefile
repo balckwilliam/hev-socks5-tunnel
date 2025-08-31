@@ -19,6 +19,7 @@ CCFLAGS=-O3 -pipe -Wall -Werror $(CFLAGS) \
 LDFLAGS=-L$(THIRDPARTDIR)/yaml/bin -lyaml \
 		-L$(THIRDPARTDIR)/lwip/bin -llwip \
 		-L$(THIRDPARTDIR)/hev-task-system/bin -lhev-task-system \
+		-lcrypto -lssl \
 		-lpthread $(LFLAGS)
 
 SRCDIR=src
