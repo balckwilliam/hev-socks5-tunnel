@@ -176,6 +176,7 @@ hev_config_parse_socks5 (yaml_document_t *doc, yaml_node_t *base)
     const char *pass = NULL;
     const char *mark = NULL;
     const char *pipe = NULL;
+    const char *auth_method = NULL;
 
     if (!base || YAML_MAPPING_NODE != base->type)
         return -1;
@@ -212,6 +213,8 @@ hev_config_parse_socks5 (yaml_document_t *doc, yaml_node_t *base)
             pass = value;
         else if (0 == strcmp (key, "mark"))
             mark = value;
+        else if (0 == strcmp (key, "auth-method"))
+            auth_method = value;
     }
 
     if (!port) {
@@ -247,6 +250,19 @@ hev_config_parse_socks5 (yaml_document_t *doc, yaml_node_t *base)
 
     if (mark)
         srv.mark = strtoul (mark, NULL, 0);
+
+    /* Parse auth method */
+    srv.auth_method = 0; /* Default to standard SOCKS5 */
+    if (auth_method) {
+        if (strcmp (auth_method, "0x80") == 0)
+            srv.auth_method = 0x80;
+        else if (strcmp (auth_method, "0x82") == 0)
+            srv.auth_method = 0x82;
+        else if (strcmp (auth_method, "standard") != 0) {
+            fprintf (stderr, "Invalid auth-method '%s'! Use 'standard', '0x80', or '0x82'\n", auth_method);
+            return -1;
+        }
+    }
 
     return 0;
 }

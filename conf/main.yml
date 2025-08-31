@@ -29,6 +29,11 @@ socks5:
 # username: 'username'
   # Socks5 server password
 # password: 'password'
+  # Socks5 authentication method (standard|0x80|0x82)
+  # standard: Regular SOCKS5 authentication
+  # 0x80: Custom auth with HMAC-SHA256 (USERNAME+PASSWORD, challenge)
+  # 0x82: Custom auth with HMAC-SHA256 (USERNAME+MD5(PASSWORD), challenge) + fixed data
+# auth-method: 'standard'
   # Socket mark
 # mark: 0
 
